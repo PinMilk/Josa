@@ -55,7 +55,9 @@ class Josa {
             case '과':
                 return this.word + (hasLast ? '과' : '와');
             case '으로':
-                return this.word + (hasLast ? '으로' : '로')
+                // 종성 인덱스 8은 ㄹ: 받침이 있어도 '로'를 붙입니다.
+                const hasRieul = (this.word.charCodeAt(this.word.length - 1) - 44032) % 28 === 8;
+                return this.word + (hasLast && !hasRieul ? '으로' : '로');
             default:
                 return this.word + this.class;
         }
